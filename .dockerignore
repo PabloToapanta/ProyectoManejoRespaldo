@@ -1,0 +1,21 @@
+# Control de versiones y metadatos
+.git
+.gitignore
+
+# Dependencias (se instalan dentro de la imagen)
+node_modules
+**/node_modules
+
+# Secretos y variables de entorno
+.env
+.env.*
+
+# Registros y cobertura
+*.log
+coverage
+
+# Documentación
+docs
+
+# Artefactos de sistema operativo
+.DS_Store

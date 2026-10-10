@@ -1,15 +1,27 @@
 const express = require('express');
 
-const router = express.Router();
-
-// Hasta integrar PostgreSQL (tarea 5) no se conoce el estado de la base.
-const DATABASE_STATUS_UNKNOWN = 'unknown';
+const HEALTH_STATUS_OK = 'ok';
+const HEALTH_STATUS_ERROR = 'error';
+const DATABASE_UP = 'up';
+const DATABASE_DOWN = 'down';
 
 /**
- * Comprobación técnica de disponibilidad del servicio.
+ * Rutas de salud. Recibe la comprobación de la base como dependencia para
+ * poder simular su disponibilidad en las pruebas.
  */
-router.get('/health', (_req, res) => {
-  res.status(200).json({ status: 'ok', database: DATABASE_STATUS_UNKNOWN });
-});
+function createHealthRouter({ checkDatabase }) {
+  const router = express.Router();
 
-module.exports = router;
+  router.get('/health', async (_req, res) => {
+    try {
+      await checkDatabase();
+      return res.status(200).json({ status: HEALTH_STATUS_OK, database: DATABASE_UP });
+    } catch {
+      return res.status(503).json({ status: HEALTH_STATUS_ERROR, database: DATABASE_DOWN });
+    }
+  });
+
+  return router;
+}
+
+module.exports = { createHealthRouter };

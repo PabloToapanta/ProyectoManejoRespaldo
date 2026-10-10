@@ -17,10 +17,15 @@
     "format:check": "prettier --check .",
     "test": "jest tests/unit",
     "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration"
+    "test:integration": "jest tests/integration",
+    "migrate:create": "node node_modules/node-pg-migrate/bin/node-pg-migrate.js create --migration-file-language cjs",
+    "migrate:up": "node --env-file-if-exists=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js up --config-file migrations.config.js",
+    "migrate:down": "node --env-file-if-exists=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js down --config-file migrations.config.js"
   },
   "dependencies": {
     "express": "5.2.1",
+    "node-pg-migrate": "9.0.0",
+    "pg": "8.23.1",
     "pino": "10.4.0",
     "zod": "4.6.5"
   },

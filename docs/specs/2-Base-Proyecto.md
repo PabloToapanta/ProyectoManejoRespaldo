@@ -156,6 +156,4 @@ Las tareas 2 y 3 van primero para que `npm run lint` y `npm test` existan desde 
 - Integración: `GET /api/v1/health` con base disponible y con base caída (simulada).
 
 ## 13. Preguntas abiertas
-- ¿Confirmamos Node 24 y PostgreSQL 17, o se prefiere Node 26 (LTS desde fines de octubre) y PostgreSQL 18?
-- ¿El equipo aprueba las claves primarias UUID? Si se aprueban, se agregan a `docs/conventions.md`.
-- ¿Todos los integrantes tienen Docker instalado y funcionando en sus máquinas?
+

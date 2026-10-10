@@ -13,6 +13,10 @@ npm-debug.log*
 # Cobertura de pruebas
 coverage/
 
+# Frontend: Bootstrap se copia a public/ con `npm run copy:bootstrap`
+frontend/public/css/bootstrap.min.css
+frontend/public/js/bootstrap.bundle.min.js
+
 # Artefactos de sistema operativo y editores
 .DS_Store
 Thumbs.db

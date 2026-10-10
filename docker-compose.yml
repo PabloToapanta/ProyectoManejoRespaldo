@@ -37,5 +37,16 @@ services:
     ports:
       - "${BACKEND_HOST_PORT:-3000}:${PORT:-3000}"
 
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      # El puerto del host es configurable para evitar conflictos locales.
+      - "${FRONTEND_HOST_PORT:-8080}:80"
+
 volumes:
   db_data:

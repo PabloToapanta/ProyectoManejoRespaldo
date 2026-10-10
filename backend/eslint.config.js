@@ -38,6 +38,9 @@ module.exports = [
     },
     rules: {
       'no-console': 'error',
+      // Los parámetros que empiezan con `_` son intencionalmente no usados
+      // (por ejemplo, la firma de 4 argumentos de un manejador de errores).
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
   {

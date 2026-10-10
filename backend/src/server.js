@@ -1,6 +1,22 @@
 const { createApp } = require('./app');
+const { loadConfig } = require('./shared/config');
+const { createLogger } = require('./shared/logger');
 
-const DEFAULT_PORT = 3000;
-const port = Number(process.env.PORT) || DEFAULT_PORT;
+const EXIT_FAILURE = 1;
 
-createApp().listen(port);
+let config;
+
+try {
+  config = loadConfig();
+} catch (error) {
+  process.stderr.write(`${error.message}\n`);
+  process.exit(EXIT_FAILURE);
+}
+
+const logger = createLogger({ level: config.LOG_LEVEL });
+
+const app = createApp({ logger });
+
+app.listen(config.PORT, () => {
+  logger.info(`Servidor escuchando en el puerto ${config.PORT}`);
+});

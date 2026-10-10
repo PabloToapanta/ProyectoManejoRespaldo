@@ -20,7 +20,9 @@
     "test:integration": "jest tests/integration"
   },
   "dependencies": {
-    "express": "5.2.1"
+    "express": "5.2.1",
+    "pino": "10.4.0",
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

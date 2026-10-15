@@ -1,0 +1,12 @@
+{
+  "name": "pasajes-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Frontend del Sistema Centralizado de Gestión y Venta de Pasajes Interprovinciales",
+  "scripts": {
+    "copy:bootstrap": "node scripts/copy-bootstrap.js"
+  },
+  "dependencies": {
+    "bootstrap": "5.3.8"
+  }
+}

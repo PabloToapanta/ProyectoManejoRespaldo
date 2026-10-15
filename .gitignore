@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (nunca versionar secretos)
+.env
+.env.*
+!.env.example
+
+# Registros (logs)
+*.log
+npm-debug.log*
+
+# Cobertura de pruebas
+coverage/
+
+# Frontend: Bootstrap se copia a public/ con `npm run copy:bootstrap`
+frontend/public/css/bootstrap.min.css
+frontend/public/js/bootstrap.bundle.min.js
+
+# Artefactos de sistema operativo y editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

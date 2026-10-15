@@ -1,0 +1,39 @@
+{
+  "name": "pasajes-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend del Sistema Centralizado de Gestión y Venta de Pasajes Interprovinciales",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "dev": "node --watch --env-file-if-exists=.env src/server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "jest tests/unit",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "migrate:create": "node node_modules/node-pg-migrate/bin/node-pg-migrate.js create --migration-file-language cjs",
+    "migrate:up": "node --env-file-if-exists=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js up --config-file migrations.config.js",
+    "migrate:down": "node --env-file-if-exists=.env node_modules/node-pg-migrate/bin/node-pg-migrate.js down --config-file migrations.config.js"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "node-pg-migrate": "9.0.0",
+    "pg": "8.23.1",
+    "pino": "10.4.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.12.0",
+    "jest": "30.5.2",
+    "prettier": "3.9.9",
+    "supertest": "7.3.1"
+  }
+}

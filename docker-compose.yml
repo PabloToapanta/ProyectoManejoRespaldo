@@ -1,0 +1,52 @@
+services:
+  db:
+    # Versión fija (sin `latest`): PostgreSQL 17, la versión acordada en el ADR 0003.
+    image: postgres:17.11-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      # El puerto del host es configurable para evitar conflictos locales.
+      - "${DB_HOST_PORT:-5432}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      # En un volumen vacío, PostgreSQL ejecuta este script y crea la base de pruebas.
+      - ./docker/db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Dentro de Compose la base siempre se alcanza por el nombre del servicio.
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${BACKEND_HOST_PORT:-3000}:${PORT:-3000}"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      # El puerto del host es configurable para evitar conflictos locales.
+      - "${FRONTEND_HOST_PORT:-8080}:80"
+
+volumes:
+  db_data:
